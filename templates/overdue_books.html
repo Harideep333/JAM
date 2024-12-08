@@ -1,0 +1,17 @@
+<h2>Overdue Books</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Member</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+    </tr>
+    {% for loan in overdue %}
+    <tr>
+        <td>{{ loan.title }}</td>
+        <td>{{ loan.name }}</td>
+        <td>{{ loan.borrow_date }}</td>
+        <td>{{ loan.return_date }}</td>
+    </tr>
+    {% endfor %}
+</table>

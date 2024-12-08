@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+<body>
+    <h1>Books List</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Availability</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.genre }}</td>
+            <td>{{ 'Available' if book.availability else 'Not Available' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/add_book">Add Book</a>
+</body>
+</html>

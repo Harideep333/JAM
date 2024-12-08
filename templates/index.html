@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Library Management System</h1>
+    </header>
+
+    <!-- Login Section -->
+    <section id="login-section">
+        {% if not current_user.is_authenticated %}
+            <h2>Login</h2>
+            <form action="{{ url_for('login') }}" method="POST">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Login</button>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flash-messages">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        {% else %}
+            <h2>Welcome, {{ current_user.email }}!</h2>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </section>
+
+    <!-- Home Content -->
+    {% if current_user.is_authenticated %}
+        <section id="home-content">
+            <h2>Explore Our Library</h2>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('get_books') }}">Books</a></li>
+                    <li><a href="{{ url_for('get_members') }}">Members</a></li>
+                    <li><a href="{{ url_for('get_loans') }}">Loans</a></li>
+                </ul>
+            </nav>
+        </section>
+    {% endif %}
+
+    <footer>
+        <p>&copy; 2024 Library Management System</p>
+    </footer>
+</body>
+</html>

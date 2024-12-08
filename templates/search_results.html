@@ -1,0 +1,6 @@
+<h2>Search Results</h2>
+<ul>
+    {% for book in books %}
+    <li>{{ book.title }} by {{ book.author }} ({{ book.genre }})</li>
+    {% endfor %}
+</ul>

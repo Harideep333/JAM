@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loans</title>
+</head>
+<body>
+    <h1>Loans List</h1>
+    <table>
+        <tr>
+            <th>Book Title</th>
+            <th>Member Name</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Action</th>
+        </tr>
+        {% for loan in loans %}
+        <tr>
+            <td>{{ loan.title }}</td>
+            <td>{{ loan.name }}</td>
+            <td>{{ loan.borrow_date }}</td>
+            <td>{{ loan.return_date }}</td>
+            <td>
+                <form action="/return_book/{{ loan.loan_id }}" method="POST">
+                    <button type="submit">Return Book</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

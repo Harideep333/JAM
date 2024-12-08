@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow Book</title>
+</head>
+<body>
+    <h1>Borrow Book</h1>
+    <form action="/borrow_book/{{ book_id }}" method="POST">
+        <label for="member_id">Member:</label><br>
+        <select id="member_id" name="member_id" required>
+            {% for member in members %}
+            <option value="{{ member.member_id }}">{{ member.name }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="borrow_date">Borrow Date:</label><br>
+        <input type="date" id="borrow_date" name="borrow_date" required><br>
+        <label for="return_date">Return Date:</label><br>
+        <input type="date" id="return_date" name="return_date" required><br>
+        <button type="submit">Borrow Book</button>
+    </form>
+</body>
+</html>
