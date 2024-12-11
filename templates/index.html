@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
+<style>
+    
+</style>
 <body>
     <header>
         <h1>Welcome to the Library Management System</h1>
@@ -33,14 +37,14 @@
                     </ul>
                 {% endif %}
             {% endwith %}
-        {% else %}
-            <h2>Welcome, {{ current_user.email }}!</h2>
-            <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <h2>Welcome, {{ current_user.name }} !</h2>
         {% endif %}
     </section>
 
     <!-- Home Content -->
     {% if current_user.is_authenticated %}
+
         <section id="home-content">
             <h2>Explore Our Library</h2>
             <nav>
@@ -48,10 +52,23 @@
                     <li><a href="{{ url_for('get_books') }}">Books</a></li>
                     <li><a href="{{ url_for('get_members') }}">Members</a></li>
                     <li><a href="{{ url_for('get_loans') }}">Loans</a></li>
+                    <li><a href="{{ url_for('search_books') }}">Search Books</a></li>
+
                 </ul>
             </nav>
-        </section>
+            
+        
+
+        <!-- Logout as a button -->
+            <form action="{{ url_for('logout') }}" method="POST">
+            <button type="submit" class="logout-btn">Logout</button>
+            </form>
+
+</section>
+
     {% endif %}
+
+
 
     <footer>
         <p>&copy; 2024 Library Management System</p>
