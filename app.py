@@ -10,7 +10,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # Set the login view
 
-# MySQL connection setup
+# MySQL connection setup‹
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",  # MySQL host
@@ -21,10 +21,10 @@ def get_db_connection():
 
 # User class to represent the logged-in user
 class User(UserMixin):
-    def __init__(self, id, email):
+    def __init__(self, id, email, name):
         self.id = id
         self.email = email
-
+        self.name = name
 # Load user from session
 @login_manager.user_loader
 def load_user(user_id):
@@ -36,7 +36,7 @@ def load_user(user_id):
     connection.close()
     
     if user_data:
-        return User(id=user_data['member_id'], email=user_data['email'])
+        return User(id=user_data['member_id'], email=user_data['email'], name=user_data['name'])
     return None
 
 # Routes
@@ -58,7 +58,7 @@ def login():
         connection.close()
 
         if user and user['password'] == password:  # Compare with hashed password if using hash
-            user_obj = User(id=user['member_id'], email=user['email'])
+            user_obj = User(id=user['member_id'], email=user['email'], name=user['name'])
             login_user(user_obj)  # Log the user in
             flash('Login successful!', 'success')
             return redirect(url_for('home'))
@@ -77,15 +77,15 @@ def add_member():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
-        phone = request.form['phone']
+        role = request.form['role']
         password = request.form['password']  # Optional: hash this before saving
 
         connection = get_db_connection()
         cursor = connection.cursor()
         cursor.execute("""
-            INSERT INTO members (name, email, phone, password)
+            INSERT INTO members (name, email, role, password)
             VALUES (%s, %s, %s, %s)
-        """, (name, email, phone, password))
+        """, (name, email, role, password))
         connection.commit()
         cursor.close()
         connection.close()
@@ -96,12 +96,13 @@ def add_member():
     return render_template('add_member.html')
 
 
-
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
-    logout_user()  # Log the user out
-    flash('You have logged out successfully.', 'info')
+    if request.method == 'POST':
+        logout_user()  # Log the user out
+        flash('You have logged out successfully.', 'info')
+        return redirect(url_for('home'))
     return redirect(url_for('home'))
 
 @app.route('/books')
@@ -199,21 +200,23 @@ def borrow_book(book_id):
 @app.route('/search_books', methods=['GET', 'POST'])
 @login_required
 def search_books():
+    search_results = []
     if request.method == 'POST':
-        keyword = f"%{request.form['keyword']}%"
+        search_query = request.form['search_query']
         connection = get_db_connection()
         cursor = connection.cursor(dictionary=True)
+        
+        # Search in title, author, or genre
         cursor.execute("""
-            SELECT * FROM books
+            SELECT * FROM books 
             WHERE title LIKE %s OR author LIKE %s OR genre LIKE %s
-        """, (keyword, keyword, keyword))
-        books = cursor.fetchall()
+        """, (f"%{search_query}%", f"%{search_query}%", f"%{search_query}%"))
+        
+        search_results = cursor.fetchall()
         cursor.close()
         connection.close()
-        return render_template('search_results.html', books=books)
-    return render_template('search_books.html')
-
-
+        
+    return render_template('search_books.html', search_results=search_results)
 
 @app.route('/overdue_books')
 @login_required
@@ -303,4 +306,4 @@ def return_book(loan_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
