@@ -1,9 +1,9 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f0f4f8; /* Light background */
     color: #333;
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -12,25 +12,20 @@ body {
     flex-direction: column;  /* Stack elements vertically */
 }
 
-h1, h2 {
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    margin-bottom: 20px;
-}
-
 /* Header Styles */
 header {
-    background-color: #333;
+    background-color: #95a4b5; /* Blue header */
     color: #fff;
     padding: 20px 0;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Full width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Larger shadow */
+    width: 100%;
 }
 
 header h1 {
     font-size: 2.5em;
     margin: 0;
+    font-weight: bold;
 }
 
 /* Navigation Styles */
@@ -39,8 +34,7 @@ nav ul {
     padding: 0;
     margin: 0;
     text-align: center;
-    background-color: #444;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #95a4b5; /* Slightly lighter gray */
     width: 100%;
 }
 
@@ -54,13 +48,15 @@ nav ul li a {
     text-decoration: none;
     padding: 10px 20px;
     font-size: 1.1em;
+    font-weight: 500;
     display: inline-block;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 nav ul li a:hover {
-    background-color: #555;
+    background-color: #262d2d;
+    transform: scale(1.05); /* Slight zoom effect */
 }
 
 /* Main Content Styles */
@@ -69,8 +65,8 @@ main {
     max-width: 800px; /* Limit content width */
     margin: 20px 0;
     background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+    border-radius: 10px; /* Rounded corners */
     text-align: center;
 }
 
@@ -83,27 +79,31 @@ form input, form button {
     border-radius: 4px;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 form input:focus, form button:focus {
     outline: none;
-    border-color: #666;
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Button Styling */
 form button {
-    background-color: #333;
+    background-color: #02070c;
     color: #fff;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 form button:hover {
-    background-color: #555;
+    background-color: #003d80;
+    transform: translateY(-2px); /* Button lift effect */
 }
 
-/* Table Styles (if applicable) */
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -118,7 +118,9 @@ table th, table td {
 }
 
 table th {
-    background-color: #f4f4f4;
+    background-color: #f4f4f4; /* Subtle background */
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 table tr:hover {
@@ -128,12 +130,13 @@ table tr:hover {
 /* Footer Styles */
 footer {
     text-align: center;
-    background-color: #333;
+    background-color: #9da7b2;
     color: #fff;
     padding: 10px 0;
     position: fixed;
     width: 100%;
     bottom: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
